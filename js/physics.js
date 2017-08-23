@@ -1,3 +1,3 @@
-window.Physics = {
+class Physics {
   // Physics engine
 };

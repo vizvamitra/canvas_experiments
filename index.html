@@ -8,15 +8,17 @@
     <script type="text/javascript" src="js/physics.js"></script>
     <script type="text/javascript" src="js/physics/body.js"></script>
     <script type="text/javascript" src="js/physics/world.js"></script>
-    <script type="text/javascript" src="js/square.js"></script>
-    <script type="text/javascript" src="js/example_drawer.js"></script>
+    <script type="text/javascript" src="js/objects/square.js"></script>
+    <script type="text/javascript" src="js/controls.js"></script>
+    <script type="text/javascript" src="js/drawer.js"></script>
+    <script type="text/javascript" src="js/engine.js"></script>
 
     <script type="text/javascript">
       function handleInput(evt){
         input = evt.target;
         paramName = input.id;
 
-        drawer.world[paramName] = parseFloat(input.value);
+        engine.world[paramName] = parseFloat(input.value);
 
         output = document.getElementById(paramName+'Val');
         output.innerHTML = input.value;
@@ -26,7 +28,7 @@
         input = evt.target;
         paramName = input.id;
 
-        drawer.generateObjects(input.value);
+        engine.generateObjects(input.value);
 
         output = document.getElementById(paramName+'Val');
         output.innerHTML = input.value;
@@ -68,8 +70,7 @@
     </ul>
 
     <script type="text/javascript">
-      var drawer = ExampleDrawer('#eventsCanvas');
-      drawer.init();
+      var engine = new Engine('#eventsCanvas');
     </script>
   </body>
 </html>
