@@ -1,0 +1,3 @@
+window.Physics = {
+  // Physics engine
+};

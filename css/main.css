@@ -1,0 +1,45 @@
+body{
+  text-align: center;
+}
+
+#container{
+  margin: auto;
+  width: 1600px;
+  overflow: auto;
+}
+
+canvas{
+  border: 1px solid #333;
+  display: block;
+  float: left;
+}
+
+#controls{
+  width: 348px;
+  float: left;
+  text-align: left;
+}
+
+#controls fieldset{
+  border: none;
+}
+
+#controls input{
+  float: right;
+}
+
+#controls output{
+  /*float: right;*/
+  width: 40px;
+}
+
+#hints{
+  list-style: none;
+  padding: 0;
+  color: #888;
+}
+
+label{
+  display: inline-block;
+  margin-bottom: 10px;
+}
