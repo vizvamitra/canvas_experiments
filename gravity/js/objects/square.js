@@ -1,21 +1,12 @@
 class Square {
-  constructor (drawer, position, width, height, mass, maxSpeed, speed) {
-    this.drawer = drawer;
+  constructor (world, position, width, height, mass, maxSpeed, speed) {
+    this.world = world;
 
     this.body = new Physics.Body(position, width, height, mass, maxSpeed, speed);
-    drawer.world.addBody(this.body);
-  }
-
-  draw () {
-    this.drawer.ctx.fillRect(
-      this.body.position.x,
-      this.body.position.y,
-      this.body.width,
-      this.body.height
-    );
+    this.world.addBody(this.body);
   }
 
   die () {
-    this.drawer.world.removeBody(this.body);
+    this.world.removeBody(this.body);
   }
 };

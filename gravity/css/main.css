@@ -9,7 +9,7 @@ body{
 }
 
 canvas{
-  border: 1px solid #333;
+  border: 1px solid #222;
   display: block;
   float: left;
   cursor: none;
@@ -19,18 +19,18 @@ canvas{
   width: 370px;
   float: left;
   text-align: left;
+  font-size: 1.1em;
 }
 
 #controls fieldset{
   border: none;
 }
 
-#controls input{
+#controls .inputBlock{
   float: right;
 }
 
 #controls output{
-  /*float: right;*/
   width: 100px;
 }
 
@@ -38,6 +38,7 @@ canvas{
   list-style: none;
   padding: 0;
   color: #888;
+  font-size: 1.1em;
 }
 
 label{

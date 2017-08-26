@@ -28,11 +28,33 @@
         resetOutputs()
       }
 
+      function switchNightMode (evt) {
+        checkbox = evt.target;
+
+        engine.setNightMode(checkbox.checked);
+        checkbox.checked ? loadNightModeCss() : unloadNightModeCss()
+      }
+
       function resetOutputs () {
-        document.querySelectorAll('#controls input').forEach(input => {
-          output = document.querySelector(`output#${input.id}Val`);
+        document.querySelectorAll('#controls input[type=range]').forEach(input => {
+          var output = document.querySelector(`output#${input.id}Val`);
           output.innerHTML = input.value;
         });
+      }
+
+      function loadNightModeCss () {
+        if (!document.getElementById('nightModeCss')) {
+          var link  = document.createElement('link');
+          link.id   = 'nightModeCss';
+          link.rel  = 'stylesheet';
+          link.type = 'text/css';
+          link.href = 'css/night_mode.css';
+          document.querySelector('head').appendChild(link);
+        }
+      }
+
+      function unloadNightModeCss () {
+        document.getElementById('nightModeCss').remove();
       }
     </script>
   </head>
@@ -48,20 +70,33 @@
       <form id='controls'>
         <fieldset>
           <label for='count'>Count</label>
-          <output id='countVal'>1000</output>
-          <input type='range' id='count' min=1 max=10000 step=1 value=1000 oninput='handleCount(event)'><br>
+          <span class='inputBlock'>
+            <output id='countVal'>1000</output>
+            <input type='range' id='count' min=1 max=10000 step=1 value=1000 oninput='handleCount(event)'>
+          </span><br>
 
           <label for='friction'>Friction</label>
-          <output id='frictionVal'>0.2</output>
-          <input type='range' id='friction' min=0 max=10 step=0.1 value=0.2 oninput='handleInput(event)'><br>
+          <span class='inputBlock'>
+            <output id='frictionVal'>0.2</output>
+            <input type='range' id='friction' min=0 max=10 step=0.1 value=0.2 oninput='handleInput(event)'>
+          </span><br>
 
           <label for='gravity'>Gravity</label>
-          <output id='gravityVal'>1000</output>
-          <input type='range' id='gravity' min=0 max=10000 step=100 value=1000 oninput='handleInput(event)'><br>
+          <span class='inputBlock'>
+            <output id='gravityVal'>1000</output>
+            <input type='range' id='gravity' min=0 max=10000 step=100 value=1000 oninput='handleInput(event)'>
+          </span><br>
 
           <label for='elasticity'>Elasticity</label>
-          <output id='elasticityVal'>0.6</output>
-          <input type='range' id='elasticity' min=0 max=1.5 step=0.1 value=0.6 oninput='handleInput(event)'>
+          <span class='inputBlock'>
+            <output id='elasticityVal'>0.6</output>
+            <input type='range' id='elasticity' min=0 max=1.5 step=0.1 value=0.6 oninput='handleInput(event)'>
+          </span><br>
+
+          <label for='nightMode' class="switch">Night mode</label>
+          <span class='inputBlock'>
+            <input type="checkbox" id='nightMode' onchange='switchNightMode(event)'>
+          </span>
         </fieldset>
       </form>
     </div>
@@ -74,10 +109,11 @@
       resetOutputs();
 
       var engine = new Engine('#eventsCanvas', {
-        objects_count: document.getElementById('count').value,
+        objectsCount: document.getElementById('count').value,
         friction: document.getElementById('friction').value,
         gravity: document.getElementById('gravity').value,
-        elasticity: document.getElementById('elasticity').value
+        elasticity: document.getElementById('elasticity').value,
+        nightMode: false
       });
     </script>
   </body>
