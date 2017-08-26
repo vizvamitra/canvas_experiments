@@ -4,7 +4,7 @@ class Engine {
     this.ctx = this.canvas.getContext('2d');
 
     this.controls = new Controls(this.canvas);
-    this.drawer = new Drawer(this.canvas);
+    this.drawer = new Drawer(this.canvas, settings.nightMode);
 
     this.world = new Physics.World(
       this.canvas.width,
@@ -15,7 +15,7 @@ class Engine {
     );
 
     this.objects = [];
-    this.generateObjects(settings.objects_count);
+    this.generateObjects(settings.objectsCount);
 
     requestAnimationFrame(this.animate.bind(this));
   }
@@ -27,10 +27,10 @@ class Engine {
     for(var j = 0; j < count; j++){
       var x = Math.floor(Math.random() * this.canvas.width);
       var y = Math.floor(Math.random() * this.canvas.height);
-      var mass = Math.floor(Math.random() * (100-50) + 50);
+      var mass = Math.floor(Math.random() * (100-30) + 30);
       var maxSpeed = Math.floor(Math.random() * (10-2) + 2);
       var size = Math.floor(mass/25);
-      var square = new Square(this, new Vector(x, y), size, size, mass, maxSpeed);
+      var square = new Square(this.world, new Vector(x, y), size, size, mass, maxSpeed);
       this.objects.push(square);
     }
   }
@@ -53,5 +53,9 @@ class Engine {
 
   draw () {
     this.drawer.draw(this.world, this.objects);
+  }
+
+  setNightMode (state) {
+    this.drawer.nightMode = state;
   }
 };
