@@ -1,15 +1,21 @@
 class Engine {
-  constructor (selector) {
+  constructor (selector, settings) {
     this.canvas = document.querySelector(selector);
     this.ctx = this.canvas.getContext('2d');
 
     this.controls = new Controls(this.canvas);
     this.drawer = new Drawer(this.canvas);
 
-    this.world = new Physics.World(this.canvas.width, this.canvas.height, 0.15, 20, 0.6);
+    this.world = new Physics.World(
+      this.canvas.width,
+      this.canvas.height,
+      settings.friction,
+      settings.gravity,
+      settings.elasticity
+    );
 
     this.objects = [];
-    this.generateObjects(50);
+    this.generateObjects(settings.objects_count);
 
     requestAnimationFrame(this.animate.bind(this));
   }
@@ -21,7 +27,7 @@ class Engine {
     for(var j = 0; j < count; j++){
       var x = Math.floor(Math.random() * this.canvas.width);
       var y = Math.floor(Math.random() * this.canvas.height);
-      var mass = Math.floor(Math.random() * (200-50) + 50);
+      var mass = Math.floor(Math.random() * (100-50) + 50);
       var maxSpeed = Math.floor(Math.random() * (10-2) + 2);
       var size = Math.floor(mass/25);
       var square = new Square(this, new Vector(x, y), size, size, mass, maxSpeed);

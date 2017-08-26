@@ -16,22 +16,23 @@
     <script type="text/javascript">
       function handleInput(evt){
         input = evt.target;
-        paramName = input.id;
+        engine.world[input.id] = parseFloat(input.value);
 
-        engine.world[paramName] = parseFloat(input.value);
-
-        output = document.getElementById(paramName+'Val');
-        output.innerHTML = input.value;
+        resetOutputs()
       }
 
       function handleCount(evt){
         input = evt.target;
-        paramName = input.id;
-
         engine.generateObjects(input.value);
 
-        output = document.getElementById(paramName+'Val');
-        output.innerHTML = input.value;
+        resetOutputs()
+      }
+
+      function resetOutputs () {
+        document.querySelectorAll('#controls input').forEach(input => {
+          output = document.querySelector(`output#${input.id}Val`);
+          output.innerHTML = input.value;
+        });
       }
     </script>
   </head>
@@ -40,23 +41,23 @@
     <h1>Movement physics</h1>
 
     <div id='container'>
-      <canvas id='eventsCanvas' width=1200 height=600>
+      <canvas id='eventsCanvas' width=1100 height=600>
         Canvas is not supported by your browser...
       </canvas>
 
       <form id='controls'>
         <fieldset>
           <label for='count'>Count</label>
-          <output id='countVal'>50</output>
-          <input type='range' id='count' min=1 max=2000 step=1 value=50 oninput='handleCount(event)'><br>
+          <output id='countVal'>1000</output>
+          <input type='range' id='count' min=1 max=10000 step=1 value=1000 oninput='handleCount(event)'><br>
 
           <label for='friction'>Friction</label>
-          <output id='frictionVal'>0.15</output>
-          <input type='range' id='friction' min=0 max=1 step=0.05 value=0.15 oninput='handleInput(event)'><br>
+          <output id='frictionVal'>0.2</output>
+          <input type='range' id='friction' min=0 max=10 step=0.1 value=0.2 oninput='handleInput(event)'><br>
 
           <label for='gravity'>Gravity</label>
-          <output id='gravityVal'>20</output>
-          <input type='range' id='gravity' min=0 max=500 step=10 value=20 oninput='handleInput(event)'><br>
+          <output id='gravityVal'>1000</output>
+          <input type='range' id='gravity' min=0 max=10000 step=100 value=1000 oninput='handleInput(event)'><br>
 
           <label for='elasticity'>Elasticity</label>
           <output id='elasticityVal'>0.6</output>
@@ -70,7 +71,14 @@
     </ul>
 
     <script type="text/javascript">
-      var engine = new Engine('#eventsCanvas');
+      resetOutputs();
+
+      var engine = new Engine('#eventsCanvas', {
+        objects_count: document.getElementById('count').value,
+        friction: document.getElementById('friction').value,
+        gravity: document.getElementById('gravity').value,
+        elasticity: document.getElementById('elasticity').value
+      });
     </script>
   </body>
 </html>
