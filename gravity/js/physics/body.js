@@ -21,6 +21,10 @@ Physics.Body = class {
     this.position = this.position.add(this.speed);
   }
 
+  centerPosition () {
+    return this.position.add(new Vector(this.width/2, this.height/2))
+  }
+
   handleCollisions () {
     var maxX = this.world.width - this.width;
     var maxY = this.world.height - this.height;
@@ -32,12 +36,14 @@ Physics.Body = class {
   }
 
   calculateSpeed () {
-    var potentialForce = this.potentialForce();
-    var potentialAcceleration = potentialForce.divide(this.mass);
+    var potentialForce = Physics.potentialForce(this, this.world.gravitySources());
+    var potentialAcceleration = Physics.acceleration(potentialForce, this.mass);
 
     this.speed = this.speed.add(potentialAcceleration);
 
-    var dissipativeAcceleration = this.dissipativeForce(potentialForce).divide(this.mass);
+    var dissipativeForce = Physics.dissipativeForce(this, potentialForce, this.world.friction);
+    var dissipativeAcceleration = Physics.acceleration(dissipativeForce, this.mass);
+
     if(this.speed.length() < dissipativeAcceleration.length()){
       this.speed = new Vector(0,0);
     } else {
@@ -45,43 +51,6 @@ Physics.Body = class {
     }
 
     this.limitMaxSpeed();
-  }
-
-  potentialForce () {
-    return this.gravityForce();
-  }
-
-  dissipativeForce (outerForce) {
-    return this.frictionForce(outerForce);
-  }
-
-  gravityForce () {
-    if(this.world.gravityCenter){
-      var gravityVec = this.world.gravityCenter
-        .substract(this.position)
-        .substract(new Vector(this.width/2, this.height/2));
-      var distance = Math.round(gravityVec.length());
-      var gravityForce = gravityVec.direction().multiply((this.mass*this.world.gravity) / Math.pow(distance, 2));
-      //gravityForce = gravityVec.direction().multiply(this.world.gravity);
-    } else {
-      var gravityForce = new Vector(0, 0);
-    }
-
-    return gravityForce;
-  }
-
-  frictionForce (outerForce) {
-    if (this.speed.length() === 0){
-      if(outerForce.length() <= this.world.friction){
-        var frictionForce = outerForce.inverse();
-      } else {
-        var frictionForce = outerForce.direction().inverse().multiply(this.world.friction);
-      }
-    } else {
-      var frictionForce = this.speed.direction().inverse().multiply(this.world.friction);
-    }
-
-    return frictionForce;
   }
 
   limitMaxSpeed () {

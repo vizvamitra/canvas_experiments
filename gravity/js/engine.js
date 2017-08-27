@@ -25,10 +25,10 @@ class Engine {
     this.objects = [];
 
     for(var j = 0; j < count; j++){
-      var x = Math.floor(Math.random() * this.canvas.width);
-      var y = Math.floor(Math.random() * this.canvas.height);
-      var mass = Math.floor(Math.random() * (100-30) + 30);
-      var maxSpeed = Math.floor(Math.random() * (10-2) + 2);
+      var x = this.random(0, this.canvas.width);
+      var y = this.random(0, this.canvas.height);
+      var mass = this.random(30, 100);
+      var maxSpeed = this.random(2, 10);
       var size = Math.floor(mass/25);
       var square = new Square(this.world, new Vector(x, y), size, size, mass, maxSpeed);
       this.objects.push(square);
@@ -57,5 +57,14 @@ class Engine {
 
   setNightMode (state) {
     this.drawer.nightMode = state;
+  }
+
+  normalRandom (min, max, power=3) {
+    var rand = new Array(power + 1).fill(0).reduce((acc, _) => acc + Math.random()) / power;
+    return rand * (max-min) + min;
+  }
+
+  random (min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
   }
 };
