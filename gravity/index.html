@@ -31,8 +31,8 @@
       function switchNightMode (evt) {
         checkbox = evt.target;
 
+        checkbox.checked ? loadNightModeCss() : unloadNightModeCss();
         engine.setNightMode(checkbox.checked);
-        checkbox.checked ? loadNightModeCss() : unloadNightModeCss()
       }
 
       function resetOutputs () {
