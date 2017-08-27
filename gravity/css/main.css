@@ -26,12 +26,15 @@ canvas{
   border: none;
 }
 
-#controls .inputBlock{
-  float: right;
+#controls .row{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 8px;
 }
 
-#controls output{
-  width: 100px;
+#controls label, #controls input, #controls output{
+  display: block;
 }
 
 #hints{
@@ -39,9 +42,4 @@ canvas{
   padding: 0;
   color: #888;
   font-size: 1.1em;
-}
-
-label{
-  display: inline-block;
-  margin-bottom: 10px;
 }
