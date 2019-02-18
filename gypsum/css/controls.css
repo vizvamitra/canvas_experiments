@@ -1,0 +1,105 @@
+#lightSettings legend button{
+  margin-left: 8px;
+}
+
+  #addPointLightSourceBtn, #addSpotLightSourceBtn{
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  #lightSelect{
+    margin: 0;
+    padding: 8px;
+    background: #f0f0f0;
+  }
+
+    #lightSelect ul{
+      list-style: none;
+      margin: 0 0 10px;
+      padding: 0;
+      width: 100%;
+    }
+
+      #lightSelect ul li>button{
+        width: 100%;
+      }
+
+  .range-container{
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  #lightSettings .mdl-textfield{
+    margin: -20px 0 -20px 26px !important;
+  }
+
+  label[for=name]{
+    padding: 0 4px;
+  }
+
+  input#name{
+    padding: 4px;
+  }
+
+/*#controls-container{ overflow: auto; }
+
+#controls{ 
+  width: 550px;
+  float: left;
+  text-align: left;
+  font-size: 1.2em;
+}
+
+  #controls form{
+    padding: 0 5px;
+    float: left;
+    text-align: center;
+  }
+
+  #controls select, #controls button{
+    font-size: 1em;
+  }
+
+  fieldset{ 
+    border: none;
+    margin: 0 0 10px;
+    padding: 0;
+  }
+
+  form#scene-controls{ width: 240px; }
+
+    select{ width: 100%; }
+    #addLightSourceBtn{width: 100%;}
+  
+  form#instance-controls{ width: 290px; }
+
+    .input, .range{ 
+      margin-bottom: 10px;
+    }
+
+    .input label, .range label{
+      width: 29%;
+      display: inline-block;
+    }
+
+    .input input{
+      width: 66%;
+      display: inline-block;
+      float: right;
+      padding: 1% 2%;
+    }
+
+    .range .slider{
+      width: 69%;
+      display: inline-block;
+    }
+
+    .range .slider input{ 
+      width: 74%;
+      float: left;
+      margin: 0;
+    }
+    .range .slider output{ 
+      width: 24%;
+      float: right;
+    }*/

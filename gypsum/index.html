@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WebGL - Gypsum</title>
+
+  <meta charset="utf-8">
+
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="css/controls.css">
+
+  <script type="text/javascript" src="vendor/react/react-0.13.3.js"></script>
+  <script type="text/javascript" src="vendor/react/JSXTransformer-0.13.3.js"></script>
+
+  <script type="text/javascript" src="vendor/mdl/material.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="vendor/mdl/material.min.css">
+  <link rel="stylesheet" type="text/css" href="css/material_icons.css">
+  <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> -->
+
+  <script type="text/javascript" src="vendor/color-temperature/color-temperature.js"></script>
+
+  <!-- GRAPHICS ENGINE -->
+
+  <script type="text/javascript" src="js/common/webgl_utils.js"></script>
+  <script type="text/javascript" src="js/common/init_shaders.js"></script>
+  <script type="text/javascript" src="js/common/quaternion.js"></script>
+  <script type="text/javascript" src="js/common/mv.js"></script>
+
+  <script type="text/javascript" src="js/engine.js"></script>
+
+  <script type="text/javascript" src="js/engine/light_source.js"></script>
+  <script type="text/javascript" src="js/engine/light_source/directional.js"></script>
+  <script type="text/javascript" src="js/engine/light_source/point.js"></script>
+  <script type="text/javascript" src="js/engine/light_source/spotlight.js"></script>
+
+  <script type="text/javascript" src="js/engine/shaders.js"></script>
+  <script type="text/javascript" src="js/engine/shaders/direct/fragment.js"></script>
+  <script type="text/javascript" src="js/engine/shaders/direct/vertex.js"></script>
+  <script type="text/javascript" src="js/engine/shaders/geometry/fragment.js"></script>
+  <script type="text/javascript" src="js/engine/shaders/geometry/vertex.js"></script>
+  <script type="text/javascript" src="js/engine/shaders/lightning/fragment.js"></script>
+  <script type="text/javascript" src="js/engine/shaders/lightning/vertex.js"></script>
+
+  <script type="text/javascript" src="js/engine/shader_programs.js"></script>
+  <script type="text/javascript" src="js/engine/shader_programs/base.js"></script>
+  <script type="text/javascript" src="js/engine/shader_programs/direct.js"></script>
+  <script type="text/javascript" src="js/engine/shader_programs/geometry.js"></script>
+  <script type="text/javascript" src="js/engine/shader_programs/lightning.js"></script>
+
+  <script type="text/javascript" src="js/engine/renderer.js"></script>
+  <script type="text/javascript" src="js/engine/camera.js"></script>
+  <script type="text/javascript" src="js/engine/geometry.js"></script>
+  <script type="text/javascript" src="js/engine/instance.js"></script>
+  <script type="text/javascript" src="js/engine/material.js"></script>
+  <script type="text/javascript" src="js/engine/mesh.js"></script>
+  <script type="text/javascript" src="js/engine/resource_registry.js"></script>
+  <script type="text/javascript" src="js/engine/scene.js"></script>
+  <script type="text/javascript" src="js/engine/z_buffer.js"></script>
+  <script type="text/javascript" src="js/engine/renderer/light_sphere_geometry.js"></script>
+
+  <!-- CONTROLS -->
+
+  <script type="text/jsx" src="js/events_engine.js"></script>
+
+  <!-- RESOURCES -->
+
+  <script type="text/javascript" src="js/resources.js"></script>
+
+  <script type="text/javascript" src="js/resources/geometry.js"></script>
+  <script type="text/javascript" src="js/resources/geometry/caesar.js"></script>
+  <script type="text/javascript" src="js/resources/geometry/cube.js"></script>
+  <script type="text/javascript" src="js/resources/geometry/room.js"></script>
+  <script type="text/javascript" src="js/resources/geometry/sphere.js"></script>
+  <script type="text/javascript" src="js/resources/geometry/light_sphere.js"></script>
+
+  <script type="text/javascript" src="js/resources/materials.js"></script>
+  <script type="text/javascript" src="js/resources/materials/metal.js"></script>
+  <script type="text/javascript" src="js/resources/materials/gypsum.js"></script>
+  <script type="text/javascript" src="js/resources/materials/light_source.js"></script>
+
+  <script type="text/javascript" src="js/resources/meshes.js"></script>
+  <script type="text/javascript" src="js/resources/meshes/caesar.js"></script>
+  <script type="text/javascript" src="js/resources/meshes/cube.js"></script>
+  <script type="text/javascript" src="js/resources/meshes/light_source.js"></script>
+  <script type="text/javascript" src="js/resources/meshes/room.js"></script>
+  <script type="text/javascript" src="js/resources/meshes/sphere.js"></script>
+
+  <!-- UI -->
+
+  <script type="text/jsx" src="js/components/lights_manager.jsx"></script>
+  <script type="text/jsx" src="js/components/lights_list.jsx"></script>
+  <script type="text/jsx" src="js/components/light_item.jsx"></script>
+  <script type="text/jsx" src="js/components/light_settings.jsx"></script>
+  <script type="text/jsx" src="js/components/point_light_settings.jsx"></script>
+  <script type="text/jsx" src="js/components/spot_light_settings.jsx"></script>
+  <script type="text/jsx" src="js/components/range.jsx"></script>
+  <script type="text/jsx" src="js/components/text_field.jsx"></script>
+  <script type="text/jsx" src="js/components/checkbox_field.jsx"></script>
+</head>
+<body>
+
+  <div class='container mdl-grid'>
+
+    <div class='mdl-cell mdl-cell--6-col'>
+      <canvas id='gl-canvas' width=512 height=512>
+        Canvas is not supported by your browser...
+      </canvas>
+    </div>
+
+    <div class='mdl-cell mdl-cell--6-col' id='controls-container'>
+      <div id='controls'>
+        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+          <div class="mdl-tabs__tab-bar">
+            <a href="#model-controls-panel" class="mdl-tabs__tab">Model</a>
+            <a href="#lights-controls-panel" class="mdl-tabs__tab is-active">Lights</a>
+          </div>
+
+
+          <div class="mdl-tabs__panel" id="model-controls-panel">
+            <form id='model-controls'>
+            </form>
+          </div>
+
+
+          <div class="mdl-tabs__panel is-active" id="lights-controls-panel"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div id='info'>
+    <p>Image is rotatable with mouse</p>
+    <p>Use mouse wheel to zoom in/out</p>
+  </div>
+
+  <script type="text/jsx" src="js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+body{
+  text-align: center;
+}
+
+.container{
+  max-width: 1060px;
+}
+
+canvas{
+  border: 1px solid #333;
+  cursor: default;
+  min-width: 500px;
+}
+
+#info{margin-top: 30px;}
+#info p{
+  margin: 10px 0;
+  color: #666;
+}
