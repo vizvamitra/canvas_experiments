@@ -27,8 +27,8 @@ class Engine {
     for(var j = 0; j < count; j++){
       var x = Math.floor(Math.random() * this.canvas.width);
       var y = Math.floor(Math.random() * this.canvas.height);
-      var mass = Math.floor(Math.random() * (100-30) + 30);
-      var maxSpeed = Math.floor(Math.random() * (10-2) + 2);
+      var mass = Math.random() * (100-30) + 30;
+      var maxSpeed = Math.random() * (10-2) + 2;
       var size = Math.floor(mass/25);
       var square = new Square(this.world, new Vector(x, y), size, size, mass, maxSpeed);
       this.objects.push(square);

@@ -3,6 +3,7 @@
     <meta charset="utf-8"/>
     <title>Canvas</title>
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/night_mode.css">
 
     <script type="text/javascript" src="js/vector.js"></script>
     <script type="text/javascript" src="js/physics.js"></script>
@@ -95,7 +96,7 @@
 
           <div class='row'>
             <label for='nightMode' class="switch">Night mode</label>
-            <input type="checkbox" id='nightMode' onchange='switchNightMode(event)'>
+            <input type="checkbox" id='nightMode' checked onchange='switchNightMode(event)'>
           </div>
         </fieldset>
       </form>
@@ -113,7 +114,7 @@
         friction: document.getElementById('friction').value,
         gravity: document.getElementById('gravity').value,
         elasticity: document.getElementById('elasticity').value,
-        nightMode: false
+        nightMode: true
       });
     </script>
   </body>
